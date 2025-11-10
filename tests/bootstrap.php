@@ -10,4 +10,6 @@ foreach ([__DIR__.'/../vendor/autoload.php', __DIR__.'/../../../vendor/autoload.
     }
 }
 
-AnnotationRegistry::registerLoader('class_exists');
+if (class_exists(AnnotationRegistry::class) && method_exists(AnnotationRegistry::class, 'registerLoader')) {
+    AnnotationRegistry::registerLoader('class_exists');
+}

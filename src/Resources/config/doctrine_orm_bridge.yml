@@ -15,5 +15,5 @@ services:
         class: SimpleBus\DoctrineORMBridge\EventListener\CollectsEventsFromEntities
         public: false
         tags:
-            # doctrine.event_subscriber tag will be added by DoctrineOrmBridgeExtension
+            # doctrine.event_listener tags for preFlush and postFlush will be added by DoctrineOrmBridgeExtension
             - { name: event_recorder }

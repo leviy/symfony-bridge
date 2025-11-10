@@ -44,8 +44,9 @@ class DoctrineOrmBridgeExtension extends ConfigurableExtension
         );
 
         $connection = $container->getParameterBag()->resolveValue($mergedConfig['connection']);
-        $container
-            ->findDefinition('simple_bus.doctrine_orm_bridge.collects_events_from_entities')
-            ->addTag('doctrine.event_subscriber', ['connection' => $connection]);
+        $definition = $container->findDefinition('simple_bus.doctrine_orm_bridge.collects_events_from_entities');
+
+        $definition->addTag('doctrine.event_listener', ['connection' => $connection, 'event' => 'preFlush']);
+        $definition->addTag('doctrine.event_listener', ['connection' => $connection, 'event' => 'postFlush']);
     }
 }
