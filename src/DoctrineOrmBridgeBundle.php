@@ -29,8 +29,6 @@ class DoctrineOrmBridgeBundle extends Bundle
     {
         $this->checkRequirements(['SimpleBusCommandBusBundle', 'SimpleBusEventBusBundle'], $container);
 
-        $this->checkProxyManagerBridgeIsPresent();
-
         $container->addCompilerPass(
             new AddMiddlewareTags(
                 'simple_bus.doctrine_orm_bridge.wraps_next_command_in_transaction',
@@ -40,12 +38,5 @@ class DoctrineOrmBridgeBundle extends Bundle
             PassConfig::TYPE_BEFORE_OPTIMIZATION,
             150
         );
-    }
-
-    private function checkProxyManagerBridgeIsPresent(): void
-    {
-        if (!class_exists('Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator')) {
-            throw new LogicException(sprintf('In order to use bundle "%s" you need to require "%s" package.', $this->getName(), 'symfony/proxy-manager-bridge'));
-        }
     }
 }
